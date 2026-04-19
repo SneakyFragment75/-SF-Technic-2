@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            width: 97%;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cart {
+            margin-top: 20px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .item span {
+            font-size: 16px;
+        }
+
+        .item button {
+            width: auto;
+            padding: 8px 12px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button.checkout {
+            width: 100%;
+            padding: 15px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button.checkout:hover {
+            background: darkgreen;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🛒 Корзина</h1>
+        <div class="cart" id="cart"></div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function renderCart() {
+            const cartDiv = document.getElementById("cart");
+            cartDiv.innerHTML = "";
+
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+
+                cartDiv.innerHTML += `
+                <div class="item">
+                    <span>${item.name} - ${item.price} грн</span>
+                    <button onclick="removeItem(${index})">Видалити</button>
+                </div>
+            `;
+            });
+
+            cartDiv.innerHTML += `
+            <div class="total">До сплати: ${total} грн</div>
+
+            <div class="form">
+                <h2>📦 Оформлення замовлення</h2>
+
+                <input type="text" id="name" placeholder="Ваше Ім'я">
+                <input type="tel" id="phone" placeholder="Телефон">
+
+                <select id="delivery" onchange="toggleDelivery()">
+                    <option value="">Выберите доставку</option>
+                    <option value="pickup">Самовивіз</option>
+                    <option value="courier">Курьєр</option>
+                    <option value="nova">Новая Пошта</option>
+                </select>
+
+                <!-- Новая почта -->
+                <div id="novaFields" class="hidden">
+                    <input type="text" placeholder="Місто">
+                    <input type="text" placeholder="Віділення Нової пошти">
+                </div>
+
+                <!-- Адрес -->
+                <div id="addressField" class="hidden">
+                    <input type="text" id="address" placeholder="Адрес">
+                </div>
+
+                <!-- Оплата -->
+                <select id="payment" class="hidden">
+                    <option value="">Спосіб оплати</option>
+                    <option>Оплата при отриманні</option>
+                    <option>Карта онлайн</option>
+                </select>
+
+                <button class="checkout" onclick="checkout()">Оформлення замовлення</button>
+            </div>
+        `;
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+        }
+
+        function toggleDelivery() {
+            const delivery = document.getElementById("delivery").value;
+
+            const novaFields = document.getElementById("novaFields");
+            const addressField = document.getElementById("addressField");
+            const payment = document.getElementById("payment");
+
+            // скрыть всё
+            novaFields.classList.add("hidden");
+            addressField.classList.add("hidden");
+            payment.classList.add("hidden");
+
+            if (delivery === "nova") {
+                novaFields.classList.remove("hidden");
+                payment.classList.remove("hidden");
+            }
+
+            if (delivery === "courier") {
+                addressField.classList.remove("hidden");
+                payment.classList.remove("hidden");
+            }
+
+            if (delivery === "pickup") {
+                payment.classList.remove("hidden");
+            }
+        }
+
+        function checkout() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const delivery = document.getElementById("delivery").value;
+
+            const addressInput = document.getElementById("address");
+            const address = addressInput ? addressInput.value : "";
+
+            if (!name || !phone) {
+                alert("Введите имя и телефон!");
+                return;
+            }
+
+            const order = {
+                customer: {
+                    name: name,
+                    phone: phone
+                },
+                delivery: {
+                    type: delivery,
+                    address: address
+                },
+                items: cart,
+                date: new Date().toLocaleString()
+            };
+
+            console.log("Заказ:", order);
+
+            alert("Заказ оформлен ✅");
+
+            localStorage.setItem("lastOrder", JSON.stringify(order));
+            localStorage.removeItem("cart");
+
+            renderCart();
+        }
+
+        renderCart();
+
+
+      
+    </script>
+
+</body>
+
+</html>
