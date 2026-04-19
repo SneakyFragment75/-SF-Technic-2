@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інтернет магазин</title>
+    <link rel="stylesheet" href="Index.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+            width: 97%;
+        }
+
+        #header {
+            margin-left: -2%;
+            margin-top: -2%;
+            margin-right: -2%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0px 20px;
+
+        }
+
+        /* ОБЩЕЕ */
+        .product-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+            padding: 20px;
+        }
+
+        /* ВЕРХНИЙ БЛОК */
+        .product-top {
+            display: flex;
+            gap: 30px;
+        }
+
+        /* ЛЕВАЯ ЧАСТЬ */
+        .product-main {
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 22px;
+            color: #2c509a;
+            margin-bottom: 15px;
+        }
+
+        .image-wrapper {
+            text-align: center;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ */
+        .purchase-section {
+            width: 320px;
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* КНОПКИ */
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-buy {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        .btn-credit {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-wishlist {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* БЛОКИ */
+        .info-block {
+            margin-top: 30px;
+        }
+
+        /* ДОСТАВКА */
+        .delivery-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* ХАРАКТЕРИСТИКИ */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table td {
+            padding: 12px;
+            background: #f5f5f5;
+            border-bottom: 5px solid white;
+        }
+
+        .specs-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        /* 📱 МОБИЛКА */
+        @media (max-width: 768px) {
+
+            .product-top {
+                flex-direction: column;
+            }
+
+            .purchase-section {
+                width: 100%;
+            }
+
+            .image-wrapper img {
+                max-width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+        }
+
+        .info-block {
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* заголовки */
+        .info-block h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* текст внутри */
+        .info-block p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        /* доставка строки */
+        .delivery-item {
+            display: grid;
+            grid-template-columns: 30px 1fr 100px 120px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* кружочек */
+        .delivery-item::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            border: 3px solid red;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* мобильная версия */
+        @media (max-width: 768px) {
+            .delivery-item {
+                grid-template-columns: 20px 1fr;
+                row-gap: 5px;
+            }
+
+            .delivery-time,
+            .delivery-price {
+                grid-column: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header">
+
+        <a href="Index.html" class="left">
+            <div class="left">
+                <img src="file/Логотип _SF_ в градієнті.png" class="logo">
+                <span class="title">
+                    <h3>꧁SF Technic꧂</h3>
+                </span>
+            </div>
+        </a>
+        <div class="center">
+            <div class="search-box">
+                <img src="file/pngtree-search-icon-image_1344447.jpg" class="icon">
+                <input type="text" placeholder="Поиск...">
+            </div>
+        </div>
+        <div class="right">
+            <div class="user-icon"></div>
+            <img src="file/account_avatar_face_man_people_profile_user_icon_123197.png" class="user">
+            <div class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="product-container">
+
+        <div class="product-top"> <!-- НОВЫЙ БЛОК -->
+
+            <div class="product-main">
+                <h1 class="product-title">Samsung Galaxy S26 Ultra</h1>
+                <div class="image-wrapper">
+                    <img src="file/sm-s948_galaxys26ultra_front_black_251120_result_1.webp">
+                </div>
+            </div>
+
+            <div class="purchase-section">
+                <p class="seller">Продавець: <strong>SF Technic</strong></p>
+                <p class="status">Товар в наявності</p>
+                <div class="price">70 999 ₴</div>
+
+                <div class="button-group">
+                    <button class ="btn btn-buy" id="buyBtn">Купити</button>
+                    <button class="btn btn-credit">Оплата частинами</button>
+                    <button class="btn-wishlist">❤</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="info-block">
+            <h3>Доставка у Київ</h3>
+            <div class="delivery-item">
+                <span>Самовивіз з магазину Алло</span>
+                <span class="delivery-time">Сьогодні</span>
+                <span class="delivery-price">Безкоштовно</span>
+            </div>
+            <div class="delivery-item">
+                <span>Доставка кур'єром Алло</span>
+                <span class="delivery-time">Завтра</span>
+                <span class="delivery-price">149 ₴</span>
+            </div>
+            <div class="delivery-item">
+                <span>У відділення "Нова пошта"</span>
+                <span class="delivery-time">Завтра</span>
+                <span class="delivery-price">Безкоштовно</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 💳 ОПЛАТА -->
+    <div class="info-block">
+        <h3>Оплата</h3>
+        <p>Оплата готівкою, Оплата по рахунку VISA / Mastercard Google Pay / Apple Pay</p>
+    </div>
+
+    <!-- 🔁 ОБМЕН -->
+    <div class="info-block">
+        <h3>Обмін / повернення</h3>
+        <p>
+            Обмін і повернення товару здійснюється протягом 14 днів після покупки,
+            відповідно до закону України "Про захист прав споживачів".
+        </p>
+        <p><strong>Гарантія:</strong> 1 рік</p>
+    </div>
+
+
+    <div class="info-block">
+        <h3>Характеристики</h3>
+        <table class="specs-table">
+            <tr>
+                <td>Рік запуску</td>
+                <td>2026</td>
+            </tr>
+            <tr>
+                <td>Кількість sim-карт</td>
+                <td>2 SIM</td>
+            </tr>
+            <tr>
+                <td>Формат SIM-карти</td>
+                <td>Nano-SIM
+
+                    e-SIM</td>
+            </tr>
+            <tr>
+                <td>Стандарти зв'язку</td>
+                <td>GSM
+
+                    3G
+
+                    4G (LTE)
+
+                    5G</td>
+            </tr>
+            <tr>
+                <td>Діагональ екрану</td>
+                <td>6.9"</td>
+            </tr>
+            <tr>
+                <td>Частота оновлення екрану</td>
+                <td>120 Гц</td>
+            </tr>
+            <tr>
+                <td>Тип екрану</td>
+                <td>Dynamic AMOLED 2X</td>
+            </tr>
+            <tr>
+                <td>Процесор</td>
+                <td>Qualcomm Snapdragon 8 Elite Gen 5</td>
+            </tr>
+            <tr>
+                <td>Кількість ядер</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>Частота процесора</td>
+                <td>4.61 ГГц</td>
+            </tr>
+            <tr>
+                <td>Графічний процесор</td>
+                <td>Adreno 840</td>
+            </tr>
+            <tr>
+                <td>Внутрішня пам'ять</td>
+                <td>512 ГБ</td>
+            </tr>
+            <tr>
+                <td>Оперативна пам'ять</td>
+                <td>12 ГБ</td>
+            </tr>
+            <tr>
+                <td>Камера</td>
+                <td>50 Мп + 200 Мп + 50 Мп + 10 Мп</td>
+            </tr>
+            <tr>
+                <td>Кількість модулів основної камери</td>
+                <td>4 модулі</td>
+            </tr>
+        </table>
+        <button id="toggleSpecsBtn">Всі характеристики</button>
+    </div>
+    </div>
+
+
+
+
+
+    <footer>
+        <div>
+            <img src="file/Логотип _SF_ в градієнті.png" class="logo">
+        </div>
+        <div>
+            <h5><b>Інформація про компанію</b></h5>
+            <h6>Про нас</h6>
+            <h6>Умови використання сайту</h6>
+            <h6>Вакансії</h6>
+            <h6>Контакти</h6>
+            <h6>Всі категорії</h6>
+        </div>
+        <div>
+            <h5><b>Допомога</b></h5>
+            <h6>Доставка та оплата</h6>
+            <h6>Кредит</h6>
+            <h6>Гарантія</h6>
+            <h6>Повернення товару</h6>
+        </div>
+        <div>
+            <h5><b>Сервіси</b></h5>
+            <h6>Бонусний рахунок</h6>
+            <h6>Картка SF Technic</h6>
+            <h6>Подарункові сертифікати</h6>
+            <h6>Корпоративним клієнтам</h6>
+        </div>
+    </footer>
+
+<div class="cart-wrapper">
+    <a href="index1.html" id="cartIcon">
+        <img src="free-icon-shopping-cart-1374128 (1).png" class="l">
+        <span id="cartCount">0</span>
+    </a>
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const rows = document.querySelectorAll(".specs-table tr");
+            const btn = document.getElementById("toggleSpecsBtn");
+
+            let expanded = false;
+            const visibleCount = 5; // сколько видно изначально
+
+            // скрываем лишние строки
+            rows.forEach((row, index) => {
+                if (index >= visibleCount) {
+                    row.style.display = "none";
+                }
+            });
+
+            btn.addEventListener("click", () => {
+                expanded = !expanded;
+
+                rows.forEach((row, index) => {
+                    if (index >= visibleCount) {
+                        row.style.display = expanded ? "table-row" : "none";
+                    }
+                });
+
+                btn.innerText = expanded ? "Скрыть" : "Показать ещё";
+            });
+
+        });
+
+        document.getElementById("buyBtn").addEventListener("click", () => {
+
+    const product = {
+        name: document.querySelector(".product-title").innerText,
+        price: parseInt(document.querySelector(".price").innerText.replace(/\D/g, "")),
+        image: document.querySelector(".image-wrapper img").src
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push(product);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const buyBtn = document.getElementById("buyBtn");
+    const cartIcon = document.getElementById("cartIcon");
+    const counter = document.getElementById("cartCount");
+
+    let cartCount = parseInt(counter.textContent) || 0;
+
+    buyBtn.addEventListener("click", () => {
+
+        const img = document.querySelector(".image-wrapper img");
+        if (!img) return;
+
+        // 👉 увеличиваем счётчик
+        cartCount++;
+        counter.textContent = cartCount;
+
+        // 🧠 создаём "летящий" элемент
+        const fly = document.createElement("div");
+
+        fly.style.position = "fixed";
+        fly.style.width = "60px";
+        fly.style.height = "60px";
+        fly.style.borderRadius = "50%";
+        fly.style.overflow = "hidden";
+        fly.style.zIndex = "9999";
+        fly.style.transition = "all 0.8s ease";
+        fly.style.pointerEvents = "none";
+        fly.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+
+        fly.innerHTML = `
+            <img src="${img.src}" style="width:100%;height:100%;object-fit:cover;">
+        `;
+
+        document.body.appendChild(fly);
+
+        // 📍 старт (картинка товара)
+        const start = img.getBoundingClientRect();
+        fly.style.top = start.top + "px";
+        fly.style.left = start.left + "px";
+
+        // 📍 движение в корзину
+        setTimeout(() => {
+            const end = cartIcon.getBoundingClientRect();
+
+            fly.style.top = end.top + "px";
+            fly.style.left = end.left + "px";
+            fly.style.transform = "scale(0.2)";
+            fly.style.opacity = "0";
+        }, 20);
+
+        // 🧹 удаление
+        setTimeout(() => fly.remove(), 900);
+
+    });
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+
+    const buyBtn = document.getElementById("buyBtn");
+    const cartIcon = document.getElementById("cartIcon");
+    const counter = document.getElementById("cartCount");
+
+    let cartCount = parseInt(counter.textContent) || 0;
+
+    buyBtn.addEventListener("click", () => {
+
+        const img = document.querySelector(".image-wrapper img");
+        if (!img) return;
+
+        // 👉 увеличиваем счётчик
+        cartCount++;
+        counter.textContent = cartCount;
+
+        // 🧠 создаём "летящий" элемент
+        const fly = document.createElement("div");
+
+        fly.style.position = "fixed";
+        fly.style.width = "60px";
+        fly.style.height = "60px";
+        fly.style.borderRadius = "50%";
+        fly.style.overflow = "hidden";
+        fly.style.zIndex = "9999";
+        fly.style.transition = "all 0.8s ease";
+        fly.style.pointerEvents = "none";
+        fly.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+
+        fly.innerHTML = `
+            <img src="${img.src}" style="width:100%;height:100%;object-fit:cover;">
+        `;
+
+        document.body.appendChild(fly);
+
+        // 📍 старт (картинка товара)
+        const start = img.getBoundingClientRect();
+        fly.style.top = start.top + "px";
+        fly.style.left = start.left + "px";
+
+        // 📍 движение в корзину
+        setTimeout(() => {
+            const end = cartIcon.getBoundingClientRect();
+
+            fly.style.top = end.top + "px";
+            fly.style.left = end.left + "px";
+            fly.style.transform = "scale(0.2)";
+            fly.style.opacity = "0";
+        }, 20);
+
+        // 🧹 удаление
+        setTimeout(() => fly.remove(), 900);
+
+    });
+
+});
+    </script>
+</body>
+
+</html>
